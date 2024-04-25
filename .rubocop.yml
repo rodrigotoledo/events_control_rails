@@ -1,0 +1,11 @@
+require: rubocop-rails
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: true
+Metrics/BlockLength:
+  Enabled: false
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - 'spec/**/*.rb'
