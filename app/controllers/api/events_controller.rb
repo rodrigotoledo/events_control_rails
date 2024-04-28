@@ -1,39 +1,26 @@
-class Api::EventsController < ApplicationController
-  def index
-    render json: Event.order(:scheduled_at).to_json
-  end
+# frozen_string_literal: true
 
-  def add_participant
-    participant = Participant.find_by_uid(params[:uid])
-    if participant.nil?
-      head :unprocessable_entity
-    else
-      if @event.participants.include?(participant)
-        head :ok
+module Api
+  class EventsController < Api::ApplicationController
+    before_action :authenticate_participant!
+
+    def index
+      events = Event.order(scheduled_at: :desc).to_json(methods: %i[formatted_scheduled_at cover_image_url])
+      render json: { events: events, participant_event_ids: current_participant.event_ids }
+    end
+
+    def toggle_activation
+      if current_participant.event_ids.include?(params[:event_id])
+        current_participant.event_participants.where(event_id: params[:event_id]).first.destroy!
       else
-        @event.participants << participant
-        head :ok
+        current_participant.events << Event.find(params[:event_id])
       end
-    end
-  rescue => e
-    head :unprocessable_entity
-  end
-
-  def remove_participant
-    participant = Participant.find_by_uid(params[:uid])
-    if participant.nil? || !@event.participants.include?(participant)
-      head :unprocessable_entity
-    else
-      @event.participants.delete(participant)
       head :ok
+    rescue StandardError => e
+      logger.info "==== error on current_participant"
+      logger.info e.message
+      logger.info "===="
+      head :unprocessable_entity
     end
-  rescue => e
-    head :unprocessable_entity
-  end
-
-  private
-
-  def set_event
-    @event = Event.find(params[:id])
   end
 end
