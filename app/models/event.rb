@@ -17,4 +17,8 @@ class Event < ApplicationRecord
     # Retorne a URL da imagem anexada
     cover.attached? ? cover.url : false
   end
+
+  def can_participate
+    scheduled_at && scheduled_at >= Time.current
+  end
 end

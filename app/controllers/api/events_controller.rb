@@ -5,7 +5,8 @@ module Api
     before_action :authenticate_participant!
 
     def index
-      events = Event.order(scheduled_at: :desc).to_json(methods: %i[formatted_scheduled_at cover_image_url])
+      events = Event.order(scheduled_at: :desc).to_json(methods: %i[formatted_scheduled_at cover_image_url
+                                                                    can_participate])
       render json: { events: events, participant_event_ids: current_participant.event_ids }
     end
 
@@ -17,9 +18,7 @@ module Api
       end
       head :ok
     rescue StandardError => e
-      logger.info "==== error on current_participant"
       logger.info e.message
-      logger.info "===="
       head :unprocessable_entity
     end
   end
