@@ -1,0 +1,2 @@
+class Hostel < ApplicationRecord
+end
