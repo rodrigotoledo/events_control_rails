@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
+  config.main_app_name = ['Admin', '']
 
   ### Popular gems integration
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :user
+    warden.authenticate! scope: :admin
   end
-  config.current_user_method(&:current_user)
+  config.current_user_method(&:current_admin)
 
   ## == CancanCan ==
   # config.authorize_with :cancancan
@@ -24,7 +27,7 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
 
-  config.included_models = ["User", "Event", "Participant"]
+  config.included_models = %w[Hostel Manager]
 
   config.actions do
     dashboard                     # mandatory
