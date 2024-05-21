@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Event < ApplicationRecord
-  belongs_to :hostel
   has_one_attached :cover
   has_many_attached :images
   has_many :event_users, dependent: :destroy
