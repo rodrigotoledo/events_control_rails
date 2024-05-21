@@ -16,13 +16,13 @@ Follow these steps to set up and run the project:
 ### Clone this repository
 
    ```bash
-   git clone https://github.com/rodrigotoledo/hostel_tribes_rails
+   git clone https://github.com/rodrigotoledo/events_control_rails
   ```
 
 ### Navigate to the project directory and install the dependencies
 
 ```bash
-cd hostel_tribes_rails
+cd events_control_rails
 bundle install
 rails db:create db:migrate db:seed
 ```
