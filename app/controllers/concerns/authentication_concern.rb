@@ -35,7 +35,7 @@ module AuthenticationConcern
 
     begin
       user_id = decoded_token_info.first['user_id']
-      user = Participant.find(user_id)
+      user = User.find(user_id)
       Current.user ||= user
     rescue StandardError => e
       logger.info '==== error on current_user'

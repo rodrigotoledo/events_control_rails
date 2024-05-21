@@ -5,7 +5,7 @@ module Api
     before_action :authenticate_user!, only: :update
 
     def create
-      user = Participant.new(user_params)
+      user = User.new(user_params)
       if user.save
         token = login(user)
         render json: { user: user.attributes.except('password_digest'), token: token }, status: :created

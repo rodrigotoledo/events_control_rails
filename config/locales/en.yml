@@ -30,7 +30,7 @@
 en:
   activerecord:
     attributes:
-      participant:
+      user:
         name: Nome
         email: E-mail
         password: Senha
