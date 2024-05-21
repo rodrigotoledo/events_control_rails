@@ -27,7 +27,7 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
 
-  config.included_models = %w[Hostel Manager]
+  config.included_models = %w[User Event Admin]
 
   config.actions do
     dashboard                     # mandatory
