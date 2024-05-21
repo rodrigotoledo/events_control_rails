@@ -56,6 +56,15 @@ group :development, :test do
   # Extensão do RuboCop para Rails
   gem 'rubocop-rails', require: false
   gem 'rufo'
+
+  gem 'active_record_query_trace'
+  gem 'byebug', platform: :mri
+  gem 'guard-rspec', '~> 4.7'
+  gem 'letter_opener'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'rubocop-performance', require: false
+  gem 'simplecov', require: false
 end
 
 group :development do
