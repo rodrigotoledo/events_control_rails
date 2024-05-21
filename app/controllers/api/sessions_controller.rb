@@ -25,7 +25,7 @@ module Api
 
     def destroy
       logout current_user
-      head :no_content
+      head :unauthorized
     end
   end
 end

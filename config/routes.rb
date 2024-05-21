@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   namespace :api do
     post :sign_in, to: 'sessions#create', as: :sign_in
-    delete :sign_in, to: 'sessions#destroy', as: :sign_out
+    delete :destroy, to: 'sessions#destroy', as: :sign_out
     resources :users, only: %i[create update]
     resources :events, only: %i[index show] do
       collection do

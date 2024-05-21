@@ -76,6 +76,13 @@ group :development do
   gem 'bullet'
 end
 
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'rspec-json_expectations'
+  gem 'shoulda-matchers'
+end
+
 gem 'devise', '~> 4.9'
 # Configuração de CORS para Rack
 gem 'rack-cors', '~> 2.0'

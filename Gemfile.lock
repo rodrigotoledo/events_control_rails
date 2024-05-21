@@ -104,6 +104,10 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    database_cleaner-active_record (2.1.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.4)
     devise (4.9.4)
       bcrypt (~> 3.0)
@@ -121,6 +125,11 @@ GEM
     email_validator (2.2.4)
       activemodel
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (3.3.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
@@ -325,6 +334,7 @@ GEM
     rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
+    rspec-json_expectations (2.2.0)
     rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
@@ -371,6 +381,8 @@ GEM
       sprockets-rails
       tilt
     shellany (0.0.1)
+    shoulda-matchers (6.2.0)
+      activesupport (>= 5.2.0)
     sidekiq (7.2.3)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -439,9 +451,11 @@ DEPENDENCIES
   brakeman
   bullet
   byebug
+  database_cleaner-active_record
   devise (~> 4.9)
   dotenv-rails
   email_validator
+  factory_bot_rails
   faker (~> 3.2)
   friendly_id (~> 5.5.0)
   guard-rspec (~> 4.7)
@@ -460,12 +474,14 @@ DEPENDENCIES
   rails-controller-testing
   rails_admin (~> 3.0.beta2)
   redis (>= 4.0.1)
+  rspec-json_expectations
   rspec-rails
   rubocop
   rubocop-performance
   rubocop-rails
   rufo
   sassc-rails
+  shoulda-matchers
   sidekiq (~> 7.2)
   simplecov
   sprockets-rails
