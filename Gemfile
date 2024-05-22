@@ -56,6 +56,15 @@ group :development, :test do
   # Extensão do RuboCop para Rails
   gem 'rubocop-rails', require: false
   gem 'rufo'
+
+  gem 'active_record_query_trace'
+  gem 'byebug', platform: :mri
+  gem 'guard-rspec', '~> 4.7'
+  gem 'letter_opener'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'rubocop-performance', require: false
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -65,6 +74,13 @@ group :development do
   gem 'brakeman'
   # Ajuda a detectar queries N+1 em ActiveRecord
   gem 'bullet'
+end
+
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'rspec-json_expectations'
+  gem 'shoulda-matchers'
 end
 
 gem 'devise', '~> 4.9'
