@@ -13,9 +13,4 @@ class User < ApplicationRecord
 
   has_many :event_users, dependent: :destroy
   has_many :events, through: :event_users
-
-  def reset_password
-    # a logica aki eh gerar um email pra essa pessoa com uma tela de confirmacao de alteracao de senha
-    true
-  end
 end
