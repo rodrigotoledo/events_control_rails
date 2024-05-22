@@ -14,15 +14,6 @@ module Api
       end
     end
 
-    def forgot_password
-      user = User.find_by(email: params[:email])
-      if user&.reset_password
-        head :ok
-      else
-        head :unprocessable_entity
-      end
-    end
-
     def destroy
       logout current_user
       head :no_content

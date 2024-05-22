@@ -7,7 +7,7 @@ module Api
     def index
       events = Event.order(scheduled_at: :desc).to_json(methods: %i[formatted_scheduled_at cover_image_url
                                                                     can_participate])
-      render json: { events: events }
+      render json: events
     end
 
     def show
@@ -22,10 +22,10 @@ module Api
     end
 
     def toggle_activation
-      if current_user.event_ids.include?(params[:event_id])
-        current_user.event_users.where(event_id: params[:event_id]).first.destroy!
+      if current_user.event_ids.include?(params[:id].to_i)
+        current_user.event_users.where(event_id: params[:id]).destroy_all
       else
-        current_user.events << Event.find(params[:event_id])
+        current_user.events << Event.find(params[:id])
       end
       head :ok
     rescue StandardError => e
