@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sessions', type: :request do
+RSpec.describe 'Api::Sessions', type: :request do
   let!(:user) { create(:user) }
 
   describe 'POST /sign_in' do
@@ -46,8 +46,8 @@ RSpec.describe 'Sessions', type: :request do
       sign_in user
     end
     it 'logout the user' do
-      delete api_sign_out_path
-      expect(response).to have_http_status(:unauthorized)
+      delete api_logout_path, headers: generate_jwt_token(user)
+      expect(response).to have_http_status(:no_content)
     end
   end
 end

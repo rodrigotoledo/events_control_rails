@@ -48,7 +48,7 @@ module SessionHelpers
   end
 
   def logout
-    delete api_sign_out_path
+    delete api_logout_path
   end
 end
 
