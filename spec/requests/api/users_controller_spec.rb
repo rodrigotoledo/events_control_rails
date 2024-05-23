@@ -67,4 +67,20 @@ RSpec.describe 'Api::Users', type: :request do
       end
     end
   end
+
+  describe 'GET /users/current_events' do
+    let(:user) { create(:user) }
+    it 'current_events of current user' do
+      create_list(:event, 5)
+      first_event = Event.first
+      last_event = Event.last
+      user.events << first_event
+      user.events << last_event
+
+      get current_events_api_users_path, headers: generate_jwt_token(user)
+
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body).sort).to eql([first_event.id, last_event.id].sort)
+    end
+  end
 end

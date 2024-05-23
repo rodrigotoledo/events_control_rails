@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   namespace :api do
     post :sign_in, to: 'sessions#create', as: :sign_in
     delete :destroy, to: 'sessions#destroy', as: :logout
-    resources :users, only: %i[create update]
+    resources :users, only: %i[create update] do
+      collection do
+        get 'current_events', to: 'users#current_events', as: :current_events
+      end
+    end
     resources :events, only: %i[index show] do
       member do
         patch 'toggle_activation', to: 'events#toggle_activation', as: :toggle_activation

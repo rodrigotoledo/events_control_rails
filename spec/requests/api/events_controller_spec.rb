@@ -29,16 +29,13 @@ RSpec.describe 'Api::Events', type: :request do
         get api_event_path(event), headers: generate_jwt_token(user)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body, symbolize_names: true)
-        event_json = JSON.parse(json_response[:event], symbolize_names: true)
-
+        event_json = JSON.parse(response.body, symbolize_names: true)
         expect(event_json[:title]).to eq(event.title)
         expect(event_json[:description]).to eq(event.description)
         expect(event_json[:formatted_scheduled_at]).to be_present
         expect(event_json[:images_url]).to be_present
         expect(event_json[:cover_image_url]).to be_present
         expect(event_json[:can_participate]).to eq(event.can_participate)
-        expect(json_response[:user_event_ids]).to include(event.id)
       end
 
       it 'returns invalid event' do
@@ -49,8 +46,8 @@ RSpec.describe 'Api::Events', type: :request do
 
     context 'events/toggle_activation' do
       let(:user) { create(:user) }
-      describe 'PATCH /events/toggle_activation' do
-        it 'toggle_activation add user to event' do
+      describe 'PATCH /events/:id/toggle_activation' do
+        it 'toggle_activation to current user for event' do
           event = create(:event)
 
           patch toggle_activation_api_event_path(event.id), headers: generate_jwt_token(user)

@@ -12,10 +12,7 @@ module Api
 
     def show
       event = Event.find(params[:id])
-      render json: {
-        event: event.to_json(methods: %i[formatted_scheduled_at cover_image_url can_participate images_url]),
-        user_event_ids: current_user.event_ids
-      }
+      render json: event.to_json(methods: %i[formatted_scheduled_at cover_image_url can_participate images_url])
     rescue StandardError => e
       logger.info e.message
       head :unprocessable_entity
