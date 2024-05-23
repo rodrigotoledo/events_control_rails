@@ -2,7 +2,7 @@
 
 module Api
   class UsersController < Api::ApplicationController
-    before_action :authenticate_user!, only: :update
+    before_action :authenticate_user!, only: %i[update current_events]
 
     def create
       user = User.new(user_params)
@@ -21,6 +21,10 @@ module Api
       else
         render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
       end
+    end
+
+    def current_events
+      render json: current_user.event_ids
     end
 
     private
