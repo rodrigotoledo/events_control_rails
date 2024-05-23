@@ -4,6 +4,7 @@ require 'factory_bot_rails'
 require 'simplecov'
 require 'shoulda/matchers'
 require 'rspec/json_expectations'
+require 'json'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods

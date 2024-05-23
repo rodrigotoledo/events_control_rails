@@ -21,21 +21,36 @@ RSpec.describe 'Api::Events', type: :request do
     describe 'GET /events/:id' do
       let!(:user) { create(:user) }
       let!(:event) { create(:event) }
-      before do
-        user.events << event
+      context 'when user can_participate' do
+        before do
+          event.users << user
+        end
+
+        it 'returns the event details' do
+          get api_event_path(event.id), headers: generate_jwt_token(user)
+
+          expect(response).to have_http_status(:ok)
+          event_json = JSON.parse(response.body, symbolize_names: true)
+
+          expect(event_json[:title]).to eq(event.title)
+          expect(event_json[:description]).to eq(event.description)
+          expect(event_json[:formatted_scheduled_at]).to be_present
+          expect(event_json[:images_url]).to be_present
+          expect(event_json[:cover_image_url]).to be_present
+          expect(event_json[:can_participate]).to eq(event.can_participate)
+          expect(event_json[:in_event]).to be_truthy
+        end
       end
 
-      it 'returns the event details' do
-        get api_event_path(event), headers: generate_jwt_token(user)
+      context 'when user cant_participate' do
+        it 'returns the event details' do
+          get api_event_path(event.id), headers: generate_jwt_token(user)
 
-        expect(response).to have_http_status(:ok)
-        event_json = JSON.parse(response.body, symbolize_names: true)
-        expect(event_json[:title]).to eq(event.title)
-        expect(event_json[:description]).to eq(event.description)
-        expect(event_json[:formatted_scheduled_at]).to be_present
-        expect(event_json[:images_url]).to be_present
-        expect(event_json[:cover_image_url]).to be_present
-        expect(event_json[:can_participate]).to eq(event.can_participate)
+          expect(response).to have_http_status(:ok)
+          event_json = JSON.parse(response.body, symbolize_names: true)
+
+          expect(event_json[:in_event]).to be_falsy
+        end
       end
 
       it 'returns invalid event' do
