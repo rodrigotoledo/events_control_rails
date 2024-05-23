@@ -3,6 +3,7 @@
 module Api
   class EventsController < Api::ApplicationController
     before_action :authenticate_user!
+    before_action :find_event, only: :show
 
     def index
       events = Event.order(scheduled_at: :desc).to_json(methods: %i[formatted_scheduled_at cover_image_url
@@ -11,11 +12,8 @@ module Api
     end
 
     def show
-      event = Event.find(params[:id])
-      render json: event.to_json(methods: %i[formatted_scheduled_at cover_image_url can_participate images_url])
-    rescue StandardError => e
-      logger.info e.message
-      head :unprocessable_entity
+      render json: @event.as_json(methods: %i[formatted_scheduled_at cover_image_url can_participate
+                                              images_url]).merge(in_event: @event.user_ids.include?(current_user.id))
     end
 
     def toggle_activation
@@ -26,7 +24,16 @@ module Api
       end
       head :ok
     rescue StandardError => e
-      logger.info e.message
+      logger.error e.message
+      head :unprocessable_entity
+    end
+
+    private
+
+    def find_event
+      @event = Event.find(params[:id])
+    rescue StandardError => e
+      logger.error e.message
       head :unprocessable_entity
     end
   end

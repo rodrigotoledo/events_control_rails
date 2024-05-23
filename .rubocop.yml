@@ -1,7 +1,15 @@
 require: rubocop-rails
+Style/Documentation:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: true
   SafeAutoCorrect: true
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'db/migrate/*'
+Metrics/AbcSize:
+  Enabled: false
 Metrics/BlockLength:
   Enabled: false
   Exclude:
