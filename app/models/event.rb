@@ -14,9 +14,17 @@ class Event < ApplicationRecord
 
   def cover_image_url
     ActiveStorage::Current.url_options = { host: ENV['HOST_ATTACHMENTS_API'] }
-
-    # Retorne a URL da imagem anexada
     cover.attached? ? cover.url : false
+  end
+
+  def images_url
+    ActiveStorage::Current.url_options = { host: ENV['HOST_ATTACHMENTS_API'] }
+    images_collection = []
+    images_collection << cover.url if cover.attached?
+    images.each do |image|
+      images_collection << image.url
+    end
+    images_collection
   end
 
   def can_participate

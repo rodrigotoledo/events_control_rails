@@ -35,6 +35,7 @@ RSpec.describe 'Api::Events', type: :request do
         expect(event_json[:title]).to eq(event.title)
         expect(event_json[:description]).to eq(event.description)
         expect(event_json[:formatted_scheduled_at]).to be_present
+        expect(event_json[:images_url]).to be_present
         expect(event_json[:cover_image_url]).to be_present
         expect(event_json[:can_participate]).to eq(event.can_participate)
         expect(json_response[:user_event_ids]).to include(event.id)
